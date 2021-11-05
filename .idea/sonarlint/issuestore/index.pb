@@ -5,5 +5,3 @@
 Ucloud-server-two-interface/src/main/java/com/self/cloudserver/dto/KafkaCommonReq.java,b\f\bfd9a1a331dfea3f78e8ba1c8d67b95f8db19c30
 ’
 bcloud-server-two-server/src/main/java/com/self/cloudserver/kafka/listener/RecordKafkaReceiver.java,c\f\cf5e109d4db9629176aaf3f61894c7727514ab9b
-†
-Vcloud-server-two-server/src/main/java/com/self/cloudserver/CloudserverApplication.java,1\0\103e7f6adcd256aea253c69f0cae831f2b652557
