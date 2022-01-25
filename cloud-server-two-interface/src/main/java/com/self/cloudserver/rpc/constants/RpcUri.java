@@ -8,4 +8,6 @@ public interface RpcUri {
 
     String TEST = RPC_PREFIX + MOUDULE_URI_PREFIX + "/test";
 
+    String LOGIN = "/api/token/login";
+
 }

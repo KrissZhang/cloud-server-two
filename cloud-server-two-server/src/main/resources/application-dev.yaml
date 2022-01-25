@@ -6,6 +6,10 @@ spring:
     # 指定默认消费者group id --> 由于在kafka中，同一组中的consumer不会读取到同一个消息，依靠groud.id设置组名
     consumer:
       group-id: cloud-server-dev
+  redis:
+    host: ${REDIS_HOST:10.12.2.64}
+    password: ${REDIS_PASSWORD:sy_202106}
+    port: 6379
 
 # topic
 app.topic.test_record: TEST-RECORD-DEV
