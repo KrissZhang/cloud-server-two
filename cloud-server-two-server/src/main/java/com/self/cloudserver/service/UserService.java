@@ -1,6 +1,8 @@
 package com.self.cloudserver.service;
 
+import cn.hutool.crypto.SecureUtil;
 import com.self.cloudserver.entity.User;
+import com.self.cloudserver.utils.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +19,9 @@ public class UserService {
         User user = new User();
         user.setId(1L);
         user.setLoginName(loginName);
-        user.setLoginPwd("123");
+        String dbPwd = SecureUtil.md5("123");
+        String enbcryptPwd = SecurityUtils.enbcryptPwd(dbPwd);
+        user.setLoginPwd(enbcryptPwd);
         user.setUserName(loginName);
         user.setEnAble(0);
 
