@@ -5,8 +5,14 @@ package com.self.cloudserver.api.req;
  */
 public class LoginReq {
 
+    /**
+     * 登陆名
+     */
     private String loginName;
 
+    /**
+     * 登陆密码(小写md5加密)
+     */
     private String loginPwd;
 
     public String getLoginName() {

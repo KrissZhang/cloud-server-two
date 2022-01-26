@@ -1,5 +1,7 @@
 package com.self.cloudserver.api.resp;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.self.cloudserver.config.CustomDateSerializer;
 import com.self.cloudserver.security.token.JwtInfo;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class LoginResp {
     /**
      * 登陆时间
      */
+    @JsonSerialize(using = CustomDateSerializer.class)
     private Date loginTime;
 
     /**

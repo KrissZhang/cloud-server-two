@@ -45,6 +45,7 @@ public class TokenService {
         LoginResp loginResp = new LoginResp();
         loginResp.setToken(token);
         BeanUtil.copyNullProperties(loginUser, loginResp);
+        loginResp.getJwtInfo().setLoginPwd(null);
 
         return ResultEntity.ok(loginResp);
     }
