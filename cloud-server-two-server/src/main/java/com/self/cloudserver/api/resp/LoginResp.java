@@ -1,7 +1,6 @@
 package com.self.cloudserver.api.resp;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.self.cloudserver.config.CustomDateSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.self.cloudserver.security.token.JwtInfo;
 
 import java.util.ArrayList;
@@ -36,8 +35,13 @@ public class LoginResp {
     /**
      * 登陆时间
      */
-    @JsonSerialize(using = CustomDateSerializer.class)
     private Date loginTime;
+
+    /**
+     * 当前日期
+     */
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    private Date curDate;
 
     /**
      * 过期时间(毫秒)
@@ -97,6 +101,14 @@ public class LoginResp {
 
     public void setLoginTime(Date loginTime) {
         this.loginTime = loginTime;
+    }
+
+    public Date getCurDate() {
+        return curDate;
+    }
+
+    public void setCurDate(Date curDate) {
+        this.curDate = curDate;
     }
 
     public Long getExpireTime() {

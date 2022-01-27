@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * Token处理
@@ -45,6 +46,7 @@ public class TokenService {
         LoginResp loginResp = new LoginResp();
         loginResp.setToken(token);
         BeanUtil.copyNullProperties(loginUser, loginResp);
+        loginResp.setCurDate(new Date());
         loginResp.getJwtInfo().setLoginPwd(null);
 
         return ResultEntity.ok(loginResp);
