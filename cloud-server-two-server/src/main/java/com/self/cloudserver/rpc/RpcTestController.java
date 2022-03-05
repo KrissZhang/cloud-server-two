@@ -1,10 +1,12 @@
 package com.self.cloudserver.rpc;
 
+import com.self.cloudserver.annotation.RateLimiter;
 import com.self.cloudserver.api.req.TestReq;
 import com.self.cloudserver.constants.Insert;
 import com.self.cloudserver.constants.Update;
 import com.self.cloudserver.dto.ResultEntity;
 import com.self.cloudserver.dto.RpcResponse;
+import com.self.cloudserver.enums.LimitTypeEnum;
 import com.self.cloudserver.rpc.constants.RpcUri;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ public class RpcTestController {
 
     private static Logger logger = LoggerFactory.getLogger(RpcTestController.class);
 
+    @RateLimiter(limitType = LimitTypeEnum.IP, count = 10)
     @GetMapping(RpcUri.TEST)
     public RpcResponse<Object> rpcTest(@RequestParam String req){
         return RpcResponse.ok(req);
