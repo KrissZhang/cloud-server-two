@@ -77,6 +77,7 @@ class CloudserverApplicationTests {
         list.parallelStream().forEach(integer -> {
             RLock rLock = redissonClient.getLock("lock:prefix:" + "redisson");
             try {
+                //获取锁失败时阻塞等待
                 rLock.lock();
 
                 //业务逻辑
@@ -86,7 +87,10 @@ class CloudserverApplicationTests {
             } catch (InterruptedException e) {
                 System.out.println(e);
             }finally {
-                rLock.unlock();
+                //需要解锁的key被锁定且被当前线程持有时才能解锁
+                if(rLock.isLocked() && rLock.isHeldByCurrentThread()){
+                    rLock.unlock();
+                }
             }
         });
     }
