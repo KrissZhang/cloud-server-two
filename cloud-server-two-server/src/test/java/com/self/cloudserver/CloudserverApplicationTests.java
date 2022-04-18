@@ -1,12 +1,18 @@
 package com.self.cloudserver;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.self.cloudserver.thread.AsyncManager;
 import com.self.cloudserver.utils.http.BaseHttpRequest;
 import com.self.cloudserver.utils.http.OkHttpUtil;
 import org.junit.jupiter.api.Test;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
 
@@ -54,6 +60,35 @@ class CloudserverApplicationTests {
         String response = OkHttpUtil.getInstance().sendRequest(request);
 
         System.out.println(response);
+    }
+
+    @Autowired
+    private RedissonClient redissonClient;
+
+    private static Integer count = 0;
+
+    @Test
+    public void testRedisson(){
+        List<Integer> list = Collections.synchronizedList(Lists.newArrayList());
+        for (int i = 0; i < 100; i++) {
+            list.add((i + 1));
+        }
+
+        list.parallelStream().forEach(integer -> {
+            RLock rLock = redissonClient.getLock("lock:prefix:" + "redisson");
+            try {
+                rLock.lock();
+
+                //业务逻辑
+                count += integer;
+                System.out.println("count:" + count);
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }finally {
+                rLock.unlock();
+            }
+        });
     }
 
 }
