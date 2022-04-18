@@ -79,6 +79,11 @@ class CloudserverApplicationTests {
             try {
                 //获取锁失败时阻塞等待
                 rLock.lock();
+                /*
+                if(!rLock.tryLock()){
+                    System.out.println("获取锁失败，业务不执行");
+                    return;
+                }*/
 
                 //业务逻辑
                 count += integer;
