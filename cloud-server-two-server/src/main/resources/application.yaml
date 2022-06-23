@@ -11,6 +11,9 @@ spring:
 
 # kafka producer
   kafka:
+    # 副本数
+    streams:
+      replication-factor: 3
     producer:
       # 写入失败时，重试次数。当leader节点失效，一个repli节点会替代成为leader节点，此时可能出现写入失败，
       # 当retris为0时，produce不会重复。retirs重发，此时repli节点完全成为leader节点，不会产生消息丢失。
@@ -40,8 +43,10 @@ spring:
       # 指定消息key和消息体的编解码方式
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    # 手动提交模式
     listener:
+      # 监听主题不存在时不会报错
+      missing-topics-fatal: false
+      # 手动提交模式
       ack-mode: MANUAL
 
 # kafka队列消息发送短信间隔
